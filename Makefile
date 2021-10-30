@@ -10,14 +10,14 @@ help: ## Prints this help message
 
 .PHONY: get_realm
 get_realm: ## Check realm used (error if not set)
-ifndef HOFUND_REALM
-	$(error HOFUND_REALM is not set !(Use "make set_realm"))
+ifeq (${KEYCLOAK_REALM},)
+	$(error KEYCLOAK_REALM is not set !(Use "make set_realm"))
 endif
-	$(info $(M) HOFUND_REALM Used : ${HOFUND_REALM})
+	$(info $(M) KEYCLOAK_REALM Used : ${KEYCLOAK_REALM})
 
 .PHONY: set_realm
 set_realm: ## Set Realm to use
-	$(info $(M) Use : export HOFUND_REALM=XXX to set the realm that you will use)
+	$(info $(M) Use : export KEYCLOAK_REALM=XXX to set the realm that you will use)
 
 .PHONY: create_client
 create_client: ## Create client (connector)
