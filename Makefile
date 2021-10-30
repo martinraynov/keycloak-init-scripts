@@ -8,19 +8,26 @@ help: ## Prints this help message
 ### MAIN FUNCTIONS ###
 ######################
 
-.PHONY: get_realm
-get_realm: ## Check realm used (error if not set)
+.PHONY: check_realm
+check_realm:
 ifeq (${KEYCLOAK_REALM},)
-	$(error KEYCLOAK_REALM is not set !(Use "make set_realm"))
+	$(error KEYCLOAK_REALM is not set !(Use "KEYCLOAK_REALM=XXX"))
 endif
 	$(info $(M) KEYCLOAK_REALM Used : ${KEYCLOAK_REALM})
 
-.PHONY: set_realm
-set_realm: ## Set Realm to use
-	$(info $(M) Use : export KEYCLOAK_REALM=XXX to set the realm that you will use)
+.PHONY: check_client
+check_client:
+ifeq (${KEYCLOAK_CLIENT},)
+	$(error KEYCLOAK_CLIENT is not set !(Use "KEYCLOAK_CLIENT=XXX"))
+endif
+	$(info $(M) KEYCLOAK_CLIENT Used : ${KEYCLOAK_CLIENT})
+
+.PHONY: example_commands
+example_commands: ## List example commands
+	$(info $(M) Use : KEYCLOAK_REALM=XXX to set the realm that you will use)
 
 .PHONY: create_client
 create_client: ## Create client (connector)
-	$(MAKE) get_realm
-	$(info $(M) Create client (connector) )
-	./scripts/create_client.sh
+	$(MAKE) check_realm check_client
+	$(info $(M) Create client (connector) for : ${CLIENT})
+	./scripts/create_client.sh 
