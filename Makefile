@@ -24,7 +24,7 @@ endif
 
 .PHONY: example_commands
 example_commands: ## List example commands
-	$(info $(M) Use : KEYCLOAK_REALM=XXX to set the realm that you will use)
+	$(info $(M) Example for client creation : KEYCLOAK_REALM=XXX KEYCLOAK_CLIENT=XXX create_client)
 
 .PHONY: create_client
 create_client: ## Create client (connector)
